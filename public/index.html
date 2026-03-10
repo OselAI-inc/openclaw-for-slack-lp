@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenClaw for Slack | Slackから、AI社員を3分で配属</title>
+  <meta name="description" content="Slackから3分で、役割付きのAI社員を配属。調査、議事録、営業下書き、社内FAQ対応まで、今の働き方のまま始められるSlackネイティブなAI社員プラットフォーム。" />
+  <meta property="og:title" content="OpenClaw for Slack | Slackから、AI社員を3分で配属" />
+  <meta property="og:description" content="ChatGPTを配るのではなく、Slackから“役割付きのAI社員”を3分で配属する。" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#120c1d" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0b14;
+      --bg-soft: #151120;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.1);
+      --line: rgba(255,255,255,0.12);
+      --text: #f7f4ff;
+      --muted: #bdb4d8;
+      --primary: #7c5cff;
+      --primary-2: #37d2ff;
+      --accent: #99ffb8;
+      --danger: #ff9bbd;
+      --shadow: 0 30px 80px rgba(0,0,0,.38);
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Zen Kaku Gothic New", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,92,255,0.18), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(55,210,255,0.14), transparent 24%),
+        linear-gradient(180deg, #0d0b14 0%, #110d18 42%, #09080f 100%);
+      line-height: 1.7;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .09;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.8), transparent 90%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .section { padding: 96px 0; position: relative; }
+    .eyebrow, .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: #d8d1f3;
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      backdrop-filter: blur(10px);
+    }
+    .eyebrow::before { content: "●"; color: var(--accent); font-size: 10px; }
+    h1, h2, h3, .logo { font-family: "Space Grotesk", "Zen Kaku Gothic New", sans-serif; }
+    h1 {
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: .95;
+      letter-spacing: -.06em;
+      margin: 18px 0 22px;
+      max-width: 10ch;
+    }
+    h2 {
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -.05em;
+      margin: 0 0 18px;
+      max-width: 12ch;
+    }
+    h3 { margin: 0 0 10px; font-size: 24px; letter-spacing: -.03em; }
+    p.lead, p.section-lead {
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 20px);
+      max-width: 760px;
+      margin: 0;
+    }
+    .hero { padding: 24px 0 72px; min-height: 100vh; display: flex; align-items: center; }
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(13,11,20,.55);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner {
+      width: min(var(--max), calc(100% - 40px)); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 74px;
+    }
+    .logo { font-size: 21px; font-weight: 700; letter-spacing: -.04em; }
+    .logo span { color: var(--primary-2); }
+    .nav-links { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
+      gap: 42px;
+      align-items: center;
+    }
+    .hero-copy { padding: 24px 0; }
+    .hero-copy strong { color: var(--text); }
+    .hero-metrics {
+      display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px;
+    }
+    .metric {
+      min-width: 150px; padding: 14px 16px; border-radius: 18px;
+      border: 1px solid var(--line); background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+    }
+    .metric .k { display: block; font-family: "Space Grotesk", sans-serif; font-size: 28px; font-weight: 700; }
+    .metric .v { color: var(--muted); font-size: 13px; }
+    .cta-row { display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 22px; border-radius: 16px; font-weight: 700;
+      border: 1px solid transparent; transition: .22s ease;
+    }
+    .btn-primary {
+      color: #0b0913;
+      background: linear-gradient(135deg, var(--accent), #e7ff8f);
+      box-shadow: 0 12px 30px rgba(153,255,184,.24);
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-secondary {
+      border-color: var(--line); background: rgba(255,255,255,.04); color: var(--text);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.08); }
+    .hero-card {
+      position: relative; border-radius: 30px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+    }
+    .hero-card::after {
+      content: ""; position: absolute; inset: auto -30% -35% auto; width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(124,92,255,.38), transparent 60%);
+      filter: blur(8px);
+    }
+    .slack-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 18px; font-size: 13px; color: #d9d2f1; background: rgba(0,0,0,.22);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .dot-row { display: flex; gap: 8px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.22); }
+    .slack-body { padding: 22px; display: grid; gap: 16px; background: linear-gradient(180deg, #221630, #171221); }
+    .bubble {
+      max-width: 92%; padding: 16px 18px; border-radius: 18px; font-size: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .bubble.user { margin-left: auto; background: #3a2754; }
+    .bubble.ai { background: #f7f4ff; color: #140d1f; }
+    .assistant-rail {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 22px 22px;
+    }
+    .assistant-mini {
+      padding: 14px; border-radius: 18px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+    }
+    .assistant-mini b { display: block; margin-bottom: 6px; }
+    .surface { border: 1px solid var(--line); background: rgba(255,255,255,.03); border-radius: 28px; padding: 28px; }
+    .grid-2, .grid-3, .grid-4 { display: grid; gap: 18px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card p, .card li { color: var(--muted); }
+    .icon-box {
+      width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+      margin-bottom: 16px; font-weight: 800; font-family: "Space Grotesk", sans-serif;
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(55,210,255,.18));
+      color: var(--text); border: 1px solid rgba(255,255,255,.08);
+    }
+    ul.clean { margin: 14px 0 0; padding-left: 18px; }
+    ul.clean li { margin: 8px 0; }
+    .comparison { display: grid; gap: 16px; margin-top: 28px; }
+    .comparison-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      align-items: stretch;
+    }
+    .comparison-row > div { padding: 22px; border-radius: 22px; border: 1px solid var(--line); }
+    .comparison-row .bad { background: rgba(255,155,189,.07); }
+    .comparison-row .good { background: rgba(153,255,184,.06); }
+    .steps { counter-reset: item; }
+    .step-card { position: relative; padding-top: 62px; }
+    .step-card::before {
+      counter-increment: item; content: "0" counter(item);
+      position: absolute; top: 20px; left: 20px; font-family: "Space Grotesk", sans-serif;
+      font-size: 14px; font-weight: 700; color: var(--primary-2);
+    }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .pill { font-size: 14px; color: var(--text); }
+    .pricing-card { position: relative; overflow: hidden; }
+    .pricing-card.featured {
+      border-color: rgba(153,255,184,.38);
+      transform: translateY(-8px);
+      background: linear-gradient(180deg, rgba(153,255,184,.08), rgba(255,255,255,.04));
+    }
+    .pricing-card .price { font-family: "Space Grotesk", sans-serif; font-size: 42px; line-height: 1; margin: 12px 0; }
+    .pricing-card .price small { font-size: 16px; color: var(--muted); }
+    .faq details {
+      border-top: 1px solid var(--line); padding: 18px 0;
+    }
+    .faq details:first-child { border-top: none; }
+    .faq summary {
+      list-style: none; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; gap: 12px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq p { margin: 12px 0 0; color: var(--muted); }
+    .cta-band {
+      padding: 36px; border-radius: 30px; overflow: hidden; position: relative;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(55,210,255,.1) 45%, rgba(255,255,255,.05));
+    }
+    .cta-band::before {
+      content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 100% 0%, rgba(153,255,184,.18), transparent 40%);
+      pointer-events: none;
+    }
+    footer { padding: 24px 0 48px; color: var(--muted); }
+    .footer-grid { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+    .small { font-size: 13px; color: var(--muted); }
+    @media (max-width: 980px) {
+      .hero { min-height: auto; }
+      .hero-grid, .grid-2, .grid-3, .grid-4, .comparison-row, .assistant-rail { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .pricing-card.featured { transform: none; }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 72px 0; }
+      .container { width: min(var(--max), calc(100% - 28px)); }
+      .nav-inner { min-height: 64px; }
+      .hero-copy { padding: 8px 0; }
+      h1 { max-width: 100%; }
+      .cta-row { flex-direction: column; }
+      .btn { width: 100%; }
+      .hero-card, .surface, .card, .cta-band { border-radius: 22px; }
+      .footer-grid { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="logo">OpenClaw <span>for Slack</span></div>
+      <div class="nav-links">
+        <a href="#problem">課題</a>
+        <a href="#solution">解決策</a>
+        <a href="#usecases">ユースケース</a>
+        <a href="#pricing">料金</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">SlackネイティブなAI社員プラットフォーム</span>
+        <h1>Slackから、<br>AI社員を<br>3分で配属。</h1>
+        <p class="lead">ChatGPTを配るのではなく、<strong>役割付きのAI社員</strong>をSlackに常駐させる。調査、議事録、営業下書き、社内FAQ対応まで、今の働き方のまま始められます。</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:makoto.homma@generative.co.jp?subject=OpenClaw%20for%20Slack%20%E3%83%87%E3%83%A2%E7%9B%B8%E8%AB%87">無料デモを申し込む</a>
+          <a class="btn btn-secondary" href="#pricing">料金を見る</a>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric"><span class="k">3分</span><span class="v">SlackからAI社員を配属</span></div>
+          <div class="metric"><span class="k">1部署</span><span class="v">小さく始めて横展開</span></div>
+          <div class="metric"><span class="k">¥49,800〜</span><span class="v">月額でスモールスタート</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="slack-topbar">
+          <div># sales-team / OpenClaw bot</div>
+          <div class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="slack-body">
+          <div class="bubble user">/openclaw deploy sales-assistant</div>
+          <div class="bubble ai">営業アシスタント社員を配属しました。商談前調査、メール下書き、提案叩き台をこのチャンネルで対応します。</div>
+          <div class="bubble user">株式会社Aの競合比較と提案論点をまとめて</div>
+          <div class="bubble ai">了解しました。競合3社比較、想定課題、提案論点、初回メール下書きまでまとめます。</div>
+        </div>
+        <div class="assistant-rail">
+          <div class="assistant-mini"><b>Research</b><span class="small">調査・比較・要約</span></div>
+          <div class="assistant-mini"><b>Minutes</b><span class="small">議事録・TODO整理</span></div>
+          <div class="assistant-mini"><b>Sales</b><span class="small">下書き・提案準備</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="problem">
+    <div class="container">
+      <span class="pill">Problem</span>
+      <h2>AIを配っても、社内では定着しない。</h2>
+      <p class="section-lead">多くの企業で詰まるのはモデル性能ではなく、導入後の運用です。OpenClaw for Slack は、汎用AIを配る発想ではなく、<strong>役割を持ったAI社員を現場に配属する</strong>発想で設計されています。</p>
+      <div class="comparison">
+        <div class="comparison-row">
+          <div class="bad">
+            <h3>よくある失敗</h3>
+            <ul class="clean">
+              <li>使う人しか使わない</li>
+              <li>プロンプト力に依存する</li>
+              <li>雑務が減らない</li>
+              <li>新しいUIが定着しない</li>
+            </ul>
+          </div>
+          <div class="good">
+            <h3>OpenClawの考え方</h3>
+            <ul class="clean">
+              <li>役割ごとにAI社員を配属</li>
+              <li>Slackでそのまま使える</li>
+              <li>部署・個人ごとに分離して運用</li>
+              <li>導入初日から成果が出やすい</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="solution">
+    <div class="container">
+      <span class="pill">Solution</span>
+      <h2>“AI導入”ではなく、<br>“増員しない増員”。</h2>
+      <p class="section-lead">月数万円で、調査・議事録・下書き作成・社内FAQの一次対応を任せられる。採用や外注の前に、まずAI社員を1人配属するという選択肢です。</p>
+      <div class="grid-3" style="margin-top: 28px;">
+        <article class="card"><div class="icon-box">R</div><h3>リサーチ社員</h3><p>競合調査、比較表、要約、仮説整理まで。手を動かす前の情報収集をSlackの中で前倒しします。</p></article>
+        <article class="card"><div class="icon-box">M</div><h3>議事録社員</h3><p>会議内容の整理、TODO抽出、次回アジェンダの叩き台まで。会議後の処理を減らします。</p></article>
+        <article class="card"><div class="icon-box">S</div><h3>営業アシスタント社員</h3><p>商談前調査、メール下書き、提案論点整理。営業の準備時間を圧縮します。</p></article>
+      </div>
+      <div class="pill-row">
+        <span class="pill">社内FAQ社員</span>
+        <span class="pill">CS一次対応社員</span>
+        <span class="pill">部署別配属</span>
+        <span class="pill">会話分離</span>
+        <span class="pill">権限制御</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="container">
+      <span class="pill">How it works</span>
+      <h2>使い方はシンプルです。</h2>
+      <p class="section-lead">現場に新しいツールを覚えさせる必要はありません。Slack上で配属して、そのまま依頼するだけです。</p>
+      <div class="grid-3 steps" style="margin-top: 28px;">
+        <article class="card step-card"><h3>デプロイ</h3><p><code>/openclaw deploy sales-assistant</code> を実行。テンプレ社員をその場で立ち上げます。</p></article>
+        <article class="card step-card"><h3>配属</h3><p>部署・個人・用途に応じてAI社員を割り当て。会話、権限、記憶を分離して運用できます。</p></article>
+        <article class="card step-card"><h3>依頼</h3><p>その日からSlackの中で依頼・相談・実務補助。新UIの定着を待つ必要がありません。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="usecases">
+    <div class="container">
+      <span class="pill">Use cases</span>
+      <h2>まずは、成果の見えやすい仕事から。</h2>
+      <p class="section-lead">全社導入ではなく、<strong>1部署 / 1担当 / 1用途</strong>から始めるのが最初の勝ち筋です。</p>
+      <div class="grid-4" style="margin-top: 28px;">
+        <article class="card"><h3>営業</h3><p>提案前調査、メール下書き、競合比較、商談準備。</p></article>
+        <article class="card"><h3>企画 / 編集</h3><p>調査、比較、要約、仮説作成、論点整理。</p></article>
+        <article class="card"><h3>バックオフィス</h3><p>社内FAQ、ルール案内、問い合わせ一次対応。</p></article>
+        <article class="card"><h3>マネジメント</h3><p>議事録、TODO抽出、次回アジェンダ作成。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="security">
+    <div class="container">
+      <span class="pill">Enterprise-ready</span>
+      <h2>社内導入できるAI社員へ。</h2>
+      <p class="section-lead">便利さだけでなく、導入の安心感まで含めて設計。B2B導入で気にされる論点を最初から押さえます。</p>
+      <div class="grid-3" style="margin-top: 28px;">
+        <article class="card"><div class="icon-box">権</div><h3>権限制御</h3><p>部署・担当・用途ごとにアクセス範囲を分離。組織運用に合わせて設計できます。</p></article>
+        <article class="card"><div class="icon-box">分</div><h3>会話分離</h3><p>用途別に文脈を分け、チームや役割ごとに混線しない運用へ。</p></article>
+        <article class="card"><div class="icon-box">録</div><h3>ログ管理</h3><p>利用ログ、監査ログ、ポリシー制御を前提に、安心して社内展開できます。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <span class="pill">Pricing</span>
+      <h2>導入しやすい3プラン</h2>
+      <p class="section-lead">最初は1〜3人のAI社員から始めて、成果が出たら部署展開へ。スモールスタート前提の料金設計です。</p>
+      <div class="grid-3" style="margin-top: 28px;">
+        <article class="card pricing-card">
+          <h3>Starter</h3>
+          <div class="price">¥49,800<small>/月</small></div>
+          <ul class="clean">
+            <li>AI社員 1〜3人</li>
+            <li>Slack連携</li>
+            <li>基本テンプレ</li>
+            <li>管理者 1名</li>
+          </ul>
+        </article>
+        <article class="card pricing-card featured">
+          <span class="pill">おすすめ</span>
+          <h3 style="margin-top:14px;">Team</h3>
+          <div class="price">¥148,000<small>/月</small></div>
+          <ul class="clean">
+            <li>AI社員 5〜20人</li>
+            <li>部署別配属</li>
+            <li>簡易ナレッジ連携</li>
+            <li>利用分析</li>
+          </ul>
+        </article>
+        <article class="card pricing-card">
+          <h3>Enterprise</h3>
+          <div class="price">個別見積</div>
+          <ul class="clean">
+            <li>SSO</li>
+            <li>監査ログ</li>
+            <li>カスタム権限</li>
+            <li>専用環境 / 導入支援</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <span class="pill">FAQ</span>
+      <h2>よくある質問</h2>
+      <div class="surface faq" style="margin-top: 24px;">
+        <details open>
+          <summary>ChatGPT TeamやClaude Teamと何が違いますか？ <span>＋</span></summary>
+          <p>汎用AIを配布するのではなく、<strong>役割を与えたAI社員をSlackに配属する</strong>点が違います。個人利用で終わらず、組織の運用に落とし込みやすいのが特徴です。</p>
+        </details>
+        <details>
+          <summary>最初はどこから導入するのが良いですか？ <span>＋</span></summary>
+          <p>全社導入ではなく、1部署 / 1担当 / 1用途から始めるのがおすすめです。営業準備、議事録、社内FAQなど成果の見えやすい業務から入ると定着しやすくなります。</p>
+        </details>
+        <details>
+          <summary>セキュリティ面は大丈夫ですか？ <span>＋</span></summary>
+          <p>権限制御、会話分離、利用ログ、監査ログ（Enterprise）を前提にした導入設計を想定しています。詳細要件は個別相談で詰められます。</p>
+        </details>
+        <details>
+          <summary>どのくらいで試せますか？ <span>＋</span></summary>
+          <p>Slackから配属する体験自体は非常に軽く、トライアル導入は最小構成なら短期間で開始可能です。まずはデモでユースケースを合わせるのが最短です。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <span class="pill">Demo</span>
+        <h2>採用する前に、まずAI社員を1人配属しませんか。</h2>
+        <p class="section-lead" style="color:#ded8f4; max-width: 760px;">Slackから3分で始められる、役割付きAI社員のデモをご案内します。営業、調査、議事録、社内FAQなど、今の業務に近いユースケースから小さく試せます。</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:makoto.homma@generative.co.jp?subject=OpenClaw%20for%20Slack%20%E7%9B%B8%E8%AB%87">無料デモを申し込む</a>
+          <a class="btn btn-secondary" href="mailto:makoto.homma@generative.co.jp?subject=OpenClaw%20for%20Slack%20%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo">OpenClaw <span>for Slack</span></div>
+        <div class="small">SlackネイティブなAI社員プラットフォーム</div>
+      </div>
+      <div class="small">Contact: makoto.homma@generative.co.jp</div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+[debug] [2026-03-10T03:29:16.322Z] ----------------------------------------------------------------------
+[debug] [2026-03-10T03:29:16.323Z] Command:       /Users/makoto.homma/.nodebrew/node/v25.8.0/bin/node /Users/makoto.homma/.npm/_npx/7750544ccf494d8b/node_modules/.bin/firebase deploy --only hosting --project oselai
+[debug] [2026-03-10T03:29:16.323Z] CLI Version:   15.9.1
+[debug] [2026-03-10T03:29:16.323Z] Platform:      darwin
+[debug] [2026-03-10T03:29:16.324Z] Node Version:  v25.8.0
+[debug] [2026-03-10T03:29:16.324Z] Time:          Tue Mar 10 2026 12:29:16 GMT+0900 (Japan Standard Time)
+[debug] [2026-03-10T03:29:16.324Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-10T03:29:21.040Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-10T03:29:21.041Z] > authorizing via signed-in user (makoto.homma@generative.co.jp)
+[debug] [2026-03-10T03:29:21.041Z] [iam] checking project oselai for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-03-10T03:29:21.042Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:21.042Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:21.043Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions [none]
+[debug] [2026-03-10T03:29:21.043Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions  x-goog-user-project=oselai
+[debug] [2026-03-10T03:29:21.043Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-10T03:29:21.738Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions 200
+[debug] [2026-03-10T03:29:21.738Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-10T03:29:21.739Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:21.739Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:21.739Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/oselai [none]
+[debug] [2026-03-10T03:29:22.115Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/oselai 200
+[debug] [2026-03-10T03:29:22.115Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/oselai {"projectId":"oselai","projectNumber":"321361919457","displayName":"oselai","name":"projects/oselai","resources":{"hostingSite":"oselai"},"state":"ACTIVE","etag":"1_70c72617-f7b1-4fa1-8a8d-77bccf5c98b0"}
+[info] 
+[info] === Deploying to 'oselai'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-03-10T03:29:22.119Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:22.119Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:22.119Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions [none]
+[debug] [2026-03-10T03:29:22.119Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-03-10T03:29:23.993Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions 500
+[debug] [2026-03-10T03:29:23.993Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions {"error":{"code":500,"message":"Internal error encountered.","status":"INTERNAL"}}
+[error] 
+[error] Error: Request to https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions had HTTP Error: 500, Internal error encountered.
+[debug] [2026-03-10T03:29:24.091Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 500,
+      "message": "Internal error encountered.",
+      "status": "INTERNAL"
+    }
+  },
+  "response": {
+    "statusCode": 500
+  }
+}
+[debug] [2026-03-10T03:29:34.416Z] ----------------------------------------------------------------------
+[debug] [2026-03-10T03:29:34.417Z] Command:       /Users/makoto.homma/.nodebrew/node/v25.8.0/bin/node /Users/makoto.homma/.npm/_npx/7750544ccf494d8b/node_modules/.bin/firebase deploy --only hosting --project oselai --debug
+[debug] [2026-03-10T03:29:34.418Z] CLI Version:   15.9.1
+[debug] [2026-03-10T03:29:34.418Z] Platform:      darwin
+[debug] [2026-03-10T03:29:34.418Z] Node Version:  v25.8.0
+[debug] [2026-03-10T03:29:34.418Z] Time:          Tue Mar 10 2026 12:29:34 GMT+0900 (Japan Standard Time)
+[debug] [2026-03-10T03:29:34.418Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-10T03:29:36.954Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-10T03:29:36.955Z] > authorizing via signed-in user (makoto.homma@generative.co.jp)
+[debug] [2026-03-10T03:29:36.955Z] [iam] checking project oselai for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-03-10T03:29:36.956Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:36.956Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:36.957Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions [none]
+[debug] [2026-03-10T03:29:36.957Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions  x-goog-user-project=oselai
+[debug] [2026-03-10T03:29:36.957Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-10T03:29:37.625Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions 200
+[debug] [2026-03-10T03:29:37.625Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oselai:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-10T03:29:37.626Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:37.626Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:37.626Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/oselai [none]
+[debug] [2026-03-10T03:29:38.007Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/oselai 200
+[debug] [2026-03-10T03:29:38.007Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/oselai {"projectId":"oselai","projectNumber":"321361919457","displayName":"oselai","name":"projects/oselai","resources":{"hostingSite":"oselai"},"state":"ACTIVE","etag":"1_70c72617-f7b1-4fa1-8a8d-77bccf5c98b0"}
+[info] 
+[info] === Deploying to 'oselai'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-03-10T03:29:38.010Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:38.010Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:38.010Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions [none]
+[debug] [2026-03-10T03:29:38.010Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-03-10T03:29:39.565Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions 200
+[debug] [2026-03-10T03:29:39.565Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions {"name":"projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[openclaw-for-slack-oselai]: beginning deploy... 
+[info] i  hosting[openclaw-for-slack-oselai]: found 1 files in public 
+[debug] [2026-03-10T03:29:39.576Z] [hosting] uploading with 200 concurrency
+[debug] [2026-03-10T03:29:39.576Z] [hosting] hash cache [cHVibGlj] not populated
+[debug] [2026-03-10T03:29:39.580Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:39.580Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:39.581Z] [hosting] hash cache [cHVibGlj] stored for 1 files
+[debug] [2026-03-10T03:29:39.581Z] [hosting][hash queue][FINAL] {"max":4,"min":4,"avg":4,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":5}
+[debug] [2026-03-10T03:29:39.582Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7:populateFiles [none]
+[debug] [2026-03-10T03:29:39.582Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7:populateFiles {"files":{"/index.html":"0885b564cf09106bb6d8517b05c3a901d649d28349a64b2415153c6dad532c18"}}
+[debug] [2026-03-10T03:29:40.141Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7:populateFiles 200
+[debug] [2026-03-10T03:29:40.141Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7:populateFiles {"uploadRequiredHashes":["0885b564cf09106bb6d8517b05c3a901d649d28349a64b2415153c6dad532c18"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7/files"}
+[debug] [2026-03-10T03:29:40.142Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:40.142Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:40.142Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7/files/0885b564cf09106bb6d8517b05c3a901d649d28349a64b2415153c6dad532c18 [none]
+[debug] [2026-03-10T03:29:40.142Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7/files/0885b564cf09106bb6d8517b05c3a901d649d28349a64b2415153c6dad532c18 [stream]
+[debug] [2026-03-10T03:29:40.144Z] [hosting][populate queue][FINAL] {"max":562,"min":562,"avg":562,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":564}
+[debug] [2026-03-10T03:29:40.144Z] [hosting] uploads queued: 1
+[debug] [2026-03-10T03:29:41.421Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7/files/0885b564cf09106bb6d8517b05c3a901d649d28349a64b2415153c6dad532c18 200
+[debug] [2026-03-10T03:29:41.422Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7/files/0885b564cf09106bb6d8517b05c3a901d649d28349a64b2415153c6dad532c18 [stream]
+[debug] [2026-03-10T03:29:41.422Z] [hosting][upload queue][FINAL] {"max":1280,"min":1280,"avg":1280,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1280}
+[info] i  hosting: upload complete 
+[info] ✔  hosting[openclaw-for-slack-oselai]: file upload complete 
+[debug] [2026-03-10T03:29:41.423Z] [hosting] deploy completed after 1853ms
+[debug] [2026-03-10T03:29:41.424Z] [
+  {
+    "config": {
+      "site": "openclaw-for-slack-oselai",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "cleanUrls": true,
+      "trailingSlash": false
+    },
+    "version": "projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7"
+  }
+]
+[info] i  hosting[openclaw-for-slack-oselai]: finalizing version... 
+[debug] [2026-03-10T03:29:41.425Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:41.425Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:41.425Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7 updateMask=status%2Cconfig
+[debug] [2026-03-10T03:29:41.425Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7 {"status":"FINALIZED","config":{"cleanUrls":true,"trailingSlashBehavior":"REMOVE"}}
+[debug] [2026-03-10T03:29:42.410Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7 200
+[debug] [2026-03-10T03:29:42.411Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7 {"name":"projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7","status":"FINALIZED","config":{"cleanUrls":true,"trailingSlashBehavior":"REMOVE"},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-03-10T03:29:38.528700Z","createUser":{"email":"makoto.homma@generative.co.jp"},"finalizeTime":"2026-03-10T03:29:42.256350Z","finalizeUser":{"email":"makoto.homma@generative.co.jp"}}
+[debug] [2026-03-10T03:29:42.411Z] [hosting] finalized version for openclaw-for-slack-oselai:[object Object]
+[info] ✔  hosting[openclaw-for-slack-oselai]: version finalized 
+[info] i  hosting[openclaw-for-slack-oselai]: releasing new version... 
+[debug] [2026-03-10T03:29:42.411Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:42.411Z] Checked if tokens are valid: true, expires at: 1773116716155
+[debug] [2026-03-10T03:29:42.412Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/channels/live/releases versionName=projects%2F321361919457%2Fsites%2Fopenclaw-for-slack-oselai%2Fversions%2Fa8b58ae6cdc143b7
+[debug] [2026-03-10T03:29:42.412Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/channels/live/releases {}
+[debug] [2026-03-10T03:29:43.080Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/channels/live/releases 200
+[debug] [2026-03-10T03:29:43.080Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/openclaw-for-slack-oselai/channels/live/releases {"name":"projects/321361919457/sites/openclaw-for-slack-oselai/channels/live/releases/1773113382258000","version":{"name":"projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7","status":"FINALIZED","config":{"cleanUrls":true,"trailingSlashBehavior":"REMOVE"},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-03-10T03:29:38.528700Z","createUser":{"email":"makoto.homma@generative.co.jp","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKuYlYJQ26DggX0RcGAa_xIt9wPqYDCc-t3DTRK7rZwukW1uQ=mo"},"finalizeTime":"2026-03-10T03:29:42.256350Z","finalizeUser":{"email":"makoto.homma@generative.co.jp","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKuYlYJQ26DggX0RcGAa_xIt9wPqYDCc-t3DTRK7rZwukW1uQ=mo"}},"type":"DEPLOY","releaseTime":"2026-03-10T03:29:42.258Z","releaseUser":{"email":"makoto.homma@generative.co.jp","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKuYlYJQ26DggX0RcGAa_xIt9wPqYDCc-t3DTRK7rZwukW1uQ=mo"}}
+[debug] [2026-03-10T03:29:43.080Z] [hosting] release: {"name":"projects/321361919457/sites/openclaw-for-slack-oselai/channels/live/releases/1773113382258000","version":{"name":"projects/321361919457/sites/openclaw-for-slack-oselai/versions/a8b58ae6cdc143b7","status":"FINALIZED","config":{"cleanUrls":true,"trailingSlashBehavior":"REMOVE"},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-03-10T03:29:38.528700Z","createUser":{"email":"makoto.homma@generative.co.jp","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKuYlYJQ26DggX0RcGAa_xIt9wPqYDCc-t3DTRK7rZwukW1uQ=mo"},"finalizeTime":"2026-03-10T03:29:42.256350Z","finalizeUser":{"email":"makoto.homma@generative.co.jp","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKuYlYJQ26DggX0RcGAa_xIt9wPqYDCc-t3DTRK7rZwukW1uQ=mo"}},"type":"DEPLOY","releaseTime":"2026-03-10T03:29:42.258Z","releaseUser":{"email":"makoto.homma@generative.co.jp","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKuYlYJQ26DggX0RcGAa_xIt9wPqYDCc-t3DTRK7rZwukW1uQ=mo"}}
+[info] ✔  hosting[openclaw-for-slack-oselai]: release complete 
+[info] 
+[info] ✔  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/oselai/overview
+[info] Hosting URL: https://openclaw-for-slack-oselai.web.app
